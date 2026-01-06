@@ -4,6 +4,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Java Version](https://img.shields.io/badge/Java-21%20LTS-blue.svg)](https://www.oracle.com/java/technologies/javase/jdk21-archive.html)
 
+
 ## Overview
 
 This project represents the **complete migration from Java 17 to Java 21 LTS** of the Spring Petclinic application, while maintaining all existing enterprise features and functionality. The application is fully compatible with WildFly 30 and PostgreSQL 16.
@@ -83,12 +84,12 @@ This project represents the **complete migration from Java 17 to Java 21 LTS** o
 
 - **Java 21 SDK** (JDK 21 LTS or later)
 - Maven 3.8+
-- PostgreSQL 16 (or compatible)
+- PostgreSQL 15 (or compatible)
 - WildFly 30+ (for deployment)
 
 ### Database Setup
 
-1. Create a PostgreSQL 16 database named `petclinic`.
+1. Create a PostgreSQL 15 database named `petclinic`.
 2. Configure connection details in `src/main/resources/application.properties`.
 3. The application will automatically initialize the schema using `initDB.sql` and `populateDB.sql`.
 
@@ -163,54 +164,17 @@ All documentation is consolidated in the `docs/` directory:
 - [OBSERVABILITY_GUIDE.md](docs/OBSERVABILITY_GUIDE.md): Prometheus, Grafana, and tracing setup
 - [WILDFLY_DEPLOYMENT.md](docs/WILDFLY_DEPLOYMENT.md): WildFly 30 deployment and optimization
 
-## Deployment
 
-1. [Overview](#overview)
-2. [Technology Stack](#technology-stack)
-3. [Architecture](#architecture)
-4. [Key Features](#key-features)
-5. [Deployment](#deployment)
-6. [Observability](#observability)
-7. [Security & Compliance](#security--compliance)
-8. [Development Guide](#development-guide)
+## Project Background
 
----
-
-## Overview
-
-This project represents a comprehensive modernization of the classic Spring Petclinic application from a legacy stack (Spring 4, Java 8, Bootstrap 2) to a modern, enterprise-grade architecture.
+This project is a comprehensive modernization of the classic Spring Petclinic application, originally built on a legacy stack (Spring 4, Java 8, Bootstrap 2), now migrated to Java 21, Spring Framework 6, Hibernate 6, and Bootstrap 5. The migration brings modern observability, resilience, security, and cloud-readiness.
 
 **Project Timeline**: Started 2025-12-27 | Status: ✅ Core Migration Complete
 
 ### Why This Migration?
 - **Legacy Stack**: Spring 4.x (EOL), Java 8 (outdated), HSQLDB (unsuitable for production), Bootstrap 2 (unmaintained)
-- **Target**: Java 17 LTS, Spring 5.3.x (latest stable non-Boot), PostgreSQL 15, Bootstrap 5, WildFly 30+
+- **Target**: Java 21 LTS, Spring 6.x, PostgreSQL 16, Bootstrap 5, WildFly 30+
 - **Value**: Modern observability, resilience patterns, security best practices, cloud-ready architecture
-
----
-
-## Technology Stack
-
-| Component | Legacy | Modern | Rationale |
-|-----------|--------|--------|-----------|
-| **Java** | 8 | **17 LTS** | 10-year LTS, modern language features (records, sealed classes, pattern matching) |
-| **Spring** | 4.x | **5.3.x (Pure Spring)** | Latest stable pre-Boot, full control over configuration |
-| **Database** | HSQLDB/MySQL | **PostgreSQL 15** | Production-ready, excellent performance, JSON support |
-| **ORM** | Hibernate 4.x | **Hibernate 6.2.13** | Full text search, better N+1 prevention, Jakarta EE |
-| **UI** | Bootstrap 2.3.2 | **Bootstrap 5.3** | Modern responsive design, accessibility, mobile-first |
-| **Caching** | EHCache | **Caffeine JCache** | Superior performance, better Spring integration |
-| **Pool** | Tomcat JDBC | **HikariCP 6.3.3** | Industry standard, best-in-class performance |
-| **Observability** | None | **Micrometer + OTEL** | Distributed tracing (trace/span IDs), Prometheus metrics |
-| **Resilience** | None | **Resilience4J** | Circuit breaker, rate limiter, bulkhead patterns |
-| **Testing** | JUnit 4 | **JUnit 5 + Mockito** | Modern testing framework with better extensibility |
-| **Server** | JBOSS EAP 7 | **WildFly 30+** | Jakarta EE 10 support, better performance, active community |
-| **Build** | Maven (basic) | **Maven + Spotless** | Automated code formatting, consistent style |
-
-### Key Dependencies Removed (Intentional)
-- ❌ Dandelion DataTables (legacy UI library)
-- ❌ Joda-Time (replaced by java.time)
-- ❌ Multiple repository implementations (JDBC, JPA variants)
-- ❌ Legacy EHCache (replaced by Caffeine)
 
 ---
 
@@ -326,13 +290,14 @@ AppConfig (Root Configuration)
 
 ---
 
+
 ## Deployment
 
 ### Prerequisites
-- **Java**: OpenJDK 17 LTS or later
-- **Database**: PostgreSQL 15.x
+- **Java**: JDK 21 LTS
+- **Database**: PostgreSQL 16.x
 - **Server**: WildFly 30.0.1+ (or JBoss EAP 7.4+)
-- **Build**: Maven 3.8+
+- **Build**: Maven 3.13+
 
 ### Database Setup
 
@@ -362,7 +327,7 @@ mvn wildfly:deploy
 - **Application**: `src/main/resources/application.properties`
 - **Logging**: `src/main/resources/logback.xml` (includes trace ID injection)
 - **Cache**: `src/main/resources/caffeine-jcache.properties`
-- **Web**: `src/main/webapp/WEB-INF/web.xml` (Jakarta EE 6.0)
+- **Web**: `src/main/webapp/WEB-INF/web.xml` (Jakarta EE 10)
 
 ### WildFly JNDI Configuration
 Datasource configured at: `java:jboss/datasources/PetclinicDS`
@@ -460,14 +425,13 @@ Default credentials (demo):
 
 ## Development Guide
 
+
 ### Running Locally
 
 ```bash
 # Build and run (requires PostgreSQL running)
 mvn clean install
-mvn spring-boot:run
-
-# Or deploy to local WildFly
+# Deploy to local WildFly or run with embedded server if available
 # Point browser to: http://localhost:8080/petclinic
 ```
 
