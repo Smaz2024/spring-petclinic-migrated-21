@@ -163,6 +163,7 @@ All documentation is consolidated in the `docs/` directory:
 - [ERD.md](docs/ERD.md): PostgreSQL database schema and relationships
 - [OBSERVABILITY_GUIDE.md](docs/OBSERVABILITY_GUIDE.md): Prometheus, Grafana, and tracing setup
 - [WILDFLY_DEPLOYMENT.md](docs/WILDFLY_DEPLOYMENT.md): WildFly 30 deployment and optimization
+- [OPERATIONS_GUIDE.md](docs/OPERATIONS_GUIDE.md): Build and Deployment commands for all environments
 
 
 ## Project Background

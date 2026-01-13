@@ -62,11 +62,18 @@ public class DataSourceConfig {
    * 1. JNDI name from 'jdbc.jndi-name' property.
    * 2. Manual HikariCP configuration using 'jdbc.*' properties.
    *
+   * <p>
+   * Supports multiple environment profiles:
+   * - dev: Development environment (localhost)
+   * - sit: System Integration Test environment
+   * - uat: User Acceptance Test environment
+   * - prod: Production environment
+   *
    * @return the configured data source
    */
   @Bean
-  // Specifies that this bean is only active for the "postgres" profile.
-  @Profile("postgres") 
+  // Specifies that this bean is active for dev, sit, uat, or prod profiles.
+  @Profile({ "dev", "sit", "uat", "prod" })
   public DataSource dataSource() {
     // 1. Try JNDI lookup first (Recommended for WildFly)
     String jndiName = env.getProperty("jdbc.jndi-name");
