@@ -89,7 +89,7 @@ This project represents the **complete migration from Java 17 to Java 21 LTS** o
 
 ### Database Setup
 
-1. Create a PostgreSQL 15 database named `petclinic`.
+1. Create a PostgreSQL 16 database named `petclinic`.
 2. Configure connection details in `src/main/resources/application.properties`.
 3. The application will automatically initialize the schema using `initDB.sql` and `populateDB.sql`.
 
@@ -110,7 +110,12 @@ mvn clean package -Dspring.profiles.active=prod
 # 3. Deploy to WildFly using Maven (Specify profile)
 mvn wildfly:deploy -Dspring.profiles.active=sit
 
-# 4. Deploy with Environment Variables (e.g., for SIT/PROD)
+# 4. Deploy with Environment Variables (Example: Linux/macOS)
+export SPRING_PROFILES_ACTIVE=prod
+export DB_PASSWORD=your_password
+mvn wildfly:deploy -DskipTests
+
+# 5. Deploy with Environment Variables (Example: Windows PowerShell)
 $env:SPRING_PROFILES_ACTIVE="prod"; $env:DB_PASSWORD="your_password"; mvn wildfly:deploy -DskipTests
 ```
 
@@ -213,7 +218,7 @@ This project is a comprehensive modernization of the classic Spring Petclinic ap
         ┌────────┴────────┐
         │                 │
 ┌───────▼──────┐  ┌───────▼────────┐
-│Caffeine Cache│  │ PostgreSQL 15  │
+│Caffeine Cache│  │ PostgreSQL 16  │
 │ (L1 Cache)   │  │  (Persistence) │
 └──────────────┘  └────────────────┘
 ```
@@ -533,10 +538,10 @@ Using raw SQL migrations (Flyway-style):
 ## Resources
 
 ### Official Documentation
-- [Spring 5.3 Reference](https://docs.spring.io/spring-framework/docs/5.3.x/reference/html/)
+- [Spring 6.2 Reference](https://docs.spring.io/spring-framework/docs/6.2.x/reference/html/)
 - [Spring Data JPA](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/)
 - [Jakarta EE Specification](https://jakarta.ee/specifications/)
-- [PostgreSQL 15 Documentation](https://www.postgresql.org/docs/15/)
+- [PostgreSQL 16 Documentation](https://www.postgresql.org/docs/16/)
 - [WildFly Administration Guide](https://docs.wildfly.org/30.0/)
 
 ### Tools & Utilities

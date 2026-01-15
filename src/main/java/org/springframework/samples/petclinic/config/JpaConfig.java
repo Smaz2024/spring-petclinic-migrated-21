@@ -44,7 +44,7 @@ import org.springframework.transaction.PlatformTransactionManager;
  * <p>
  * Persistence features:
  * <ul>
- * <li>Hibernate 5.6.x vendor adapter.</li>
+ * <li>Hibernate 6.x vendor adapter.</li>
  * <li>Caffeine as the second-level cache provider.</li>
  * <li>Automated repository generation for {@code repository} package.</li>
  * </ul>
@@ -54,7 +54,8 @@ import org.springframework.transaction.PlatformTransactionManager;
  * @since 2.0.0
  */
 @Configuration
-// Enables JPA repositories and specifies the base package for repository scanning.
+// Enables JPA repositories and specifies the base package for repository
+// scanning.
 @EnableJpaRepositories(basePackages = "org.springframework.samples.petclinic.repository")
 public class JpaConfig {
 
@@ -64,11 +65,13 @@ public class JpaConfig {
 
   /**
    * Configures the JPA {@link LocalContainerEntityManagerFactoryBean}.
-   * Demonstrates JDK 21 best practices with enhanced null checking and property management.
+   * Demonstrates JDK 21 best practices with enhanced null checking and property
+   * management.
    *
    * <p>
    * Sets up Hibernate dialect, SQL formatting, DDL-auto settings, and
-   * second-level cache integration via JCache and Caffeine (fully optimized for JDK 21).
+   * second-level cache integration via JCache and Caffeine (fully optimized for
+   * JDK 21).
    *
    * @param dataSource the data source to use (must not be null)
    * @return the configured entity manager factory bean with JDK 21 optimizations
@@ -78,7 +81,7 @@ public class JpaConfig {
       @NotNull DataSource dataSource) {
     // JDK 21: Modern null validation using java.util.Objects for better semantics
     java.util.Objects.requireNonNull(dataSource, "DataSource must not be null");
-    
+
     // Creates and configures the EntityManagerFactoryBean.
     LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
     em.setDataSource(dataSource);
@@ -120,14 +123,15 @@ public class JpaConfig {
    * Configures the transaction manager for JPA.
    * Leverages JDK 21 Platform abstractions for transaction handling.
    *
-   * @param emf The EntityManagerFactory to use for the transaction manager (must not be null).
+   * @param emf The EntityManagerFactory to use for the transaction manager (must
+   *            not be null).
    * @return The configured transaction manager with JDK 21 optimizations.
    */
   @Bean
   public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
     // JDK 21: Modern null validation
     java.util.Objects.requireNonNull(emf, "EntityManagerFactory must not be null");
-    
+
     JpaTransactionManager transactionManager = new JpaTransactionManager();
     transactionManager.setEntityManagerFactory(emf);
     return transactionManager;

@@ -6,9 +6,9 @@ This document illustrates the before-and-after state of the Spring Petclinic app
 |---------|---------------|-----------------|
 | **Java Version** | Java 8 | **Java 21 (LTS)** |
 | **Framework** | Spring 4.x | **Spring 6.2.1x (Pure Spring)** |
-| **Database** | HSQLDB / MySQL 5.x | **PostgreSQL 15** |
+| **Database** | HSQLDB / MySQL 5.x | **PostgreSQL 16** |
 | **UI Framework** | Bootstrap 2.3.2 | **Bootstrap 5.3** |
-| **Application Server** | JBOSS EAP 7 | **Wildfly 20+** |
+| **Application Server** | JBOSS EAP 7 | **WildFly 30+** |
 | **Connection Pool** | Tomcat JDBC | **HikariCP** |
 | **Caching** | EhCache | **Caffeine** |
 | **Testing** | JUnit 4 | **JUnit 5 + Mockito** |

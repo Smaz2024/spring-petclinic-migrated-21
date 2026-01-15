@@ -26,7 +26,7 @@ graph TD
     
     subgraph Data_Layer
         Repo --> Cache[(Caffeine Cache)]
-        Repo --> DB[(PostgreSQL 15)]
+        Repo --> DB[(PostgreSQL 16)]
     end
     
     subgraph Observability_Stack
@@ -45,5 +45,5 @@ All major configuration (database, cache, JPA, resilience, observability, etc.) 
 1. **Web Layer**: Spring MVC with Bootstrap 5 JSP views. Handles user interactions and input validation.
 2. **Service Layer**: Business logic implementation. Transaction management, Resilience policies (Circuit Breaker), and caching logic reside here.
 3. **Repository Layer**: Spring Data JPA interfaces for database interaction.
-4. **Data Layer**: PostgreSQL 15 for persistent storage, Caffeine for high-performance in-memory caching.
+4. **Data Layer**: PostgreSQL 16 for persistent storage, Caffeine for high-performance in-memory caching.
 5. **Observability**: Sidecar processes collect metrics (Prometheus) and trace distributed transactions (OpenTelemetry).

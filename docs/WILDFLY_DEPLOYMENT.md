@@ -34,7 +34,7 @@
 ### Deploy Using Maven
 
 ```bash
-cd c:\petclinic\spring-petclinic-migrated
+cd c:\petclinic\commit\spring-petclinic-migrated-21
 
 # Deploy to WildFly and capture logs
 mvn wildfly:deploy 2>&1 | Tee-Object -FilePath logs/deployment.log
@@ -398,7 +398,7 @@ Located at: `src/main/webapp/WEB-INF/jboss-deployment-structure.xml`
 - Ensures deterministic behavior
 
 **Key Exclusions**:
-1. **Hibernate**: Use WAR-bundled 6.x (WildFly 30 ships with Hibernate 6.x; do NOT use the server module)
+1. **Hibernate**: Use server-provided 6.x (WildFly 30 ships with Hibernate 6.x; we leverage this for optimal performance and footprint)
 2. **Jackson**: Use WAR version for consistent JSON processing
 3. **JAX-RS/RESTEasy**: Not used in this application
 4. **Logging**: Use SLF4J + Logback from WAR
@@ -430,8 +430,8 @@ Located at: `src/main/webapp/WEB-INF/jboss-deployment-structure.xml`
            <resource-root path="postgresql-42.7.1.jar"/>
        </resources>
        <dependencies>
-           <module name="javax.api"/>
-           <module name="javax.transaction.api"/>
+           <module name="jakarta.api"/>
+           <module name="jakarta.transaction.api"/>
        </dependencies>
    </module>
    ```
@@ -482,16 +482,16 @@ In `application.properties`:
 
 ```properties
 # Connection pool sizing (for 2GB heap, 100 concurrent users)
-hikaricp.maximum-pool-size=20
-hikaricp.minimum-idle=5
-hikaricp.connection-timeout=30000
-hikaricp.idle-timeout=600000
-hikaricp.max-lifetime=1800000
+hikari.maximum-pool-size=20
+hikari.minimum-idle=5
+hikari.connection-timeout=30000
+hikari.idle-timeout=600000
+hikari.max-lifetime=1800000
 
 # Performance optimizations
-hikaricp.cache-prep-stmts=true
-hikaricp.prep-stmt-cache-size=250
-hikaricp.prep-stmt-cache-sql-limit=2048
+hikari.cache-prep-stmts=true
+hikari.prep-stmt-cache-size=250
+hikari.prep-stmt-cache-sql-limit=2048
 ```
 
 ### Hibernate Tuning

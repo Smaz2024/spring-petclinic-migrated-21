@@ -60,7 +60,7 @@ public class DataSourceConfig {
    * <p>
    * Priorities:
    * 1. JNDI name from 'jdbc.jndi-name' property.
-   * 2. Manual HikariCP configuration using 'jdbc.*' properties.
+   * 2. Manual HikariCP configuration using 'jdbc.*' and 'hikari.*' properties.
    *
    * <p>
    * Supports multiple environment profiles:
