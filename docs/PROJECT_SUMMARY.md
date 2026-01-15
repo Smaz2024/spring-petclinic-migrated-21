@@ -11,11 +11,11 @@ This file consolidates all key information from the following documentation file
 - recommendations_and_questions.md
 
 ## 1. Overview
-- Modernized from Spring 4/Java 8/MySQL/HSQLDB/Bootstrap 2 to Spring 5.3/Java 17/PostgreSQL 15/Bootstrap 5.
+- Modernized from Spring 4/Java 8/MySQL/HSQLDB/Bootstrap 2 to Spring 6.2.1/Java 21/PostgreSQL 16/Bootstrap 5.
 - Focus on observability, resilience, security, and compliance.
 
 ## 2. Technology Stack
-- Java 17, Spring 5.3.x, Hibernate 6, PostgreSQL 15, Bootstrap 5, Caffeine, HikariCP, Micrometer, OpenTelemetry, Resilience4J, JUnit 5, Mockito, Maven, WildFly 30+.
+- Java 21, Spring 6.2.1, Hibernate 6.6.4, PostgreSQL 16, Bootstrap 5, Caffeine, HikariCP, Micrometer, OpenTelemetry, Resilience4J, JUnit 5, Mockito, Maven, WildFly 30+.
 
 ## 3. Architecture
 - Layered: Web (Spring MVC + JSP/Bootstrap 5), Service (business logic, AOP aspects), Repository (Spring Data JPA), Data (PostgreSQL, Caffeine).

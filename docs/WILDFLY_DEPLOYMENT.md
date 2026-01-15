@@ -635,7 +635,7 @@ Total: ~3060 MB → 3GB container limit
 ## References
 
 - [WildFly 30 Documentation](https://docs.wildfly.org/30/)
-- [Java 17 GC Tuning](https://docs.oracle.com/en/java/javase/17/gctuning/)
+- [Java 21 GC Tuning](https://docs.oracle.com/en/java/javase/21/gctuning/)
 - [HikariCP Configuration](https://github.com/brettwooldridge/HikariCP)
 - [G1GC Tuning Guide](https://www.oracle.com/technical-resources/articles/java/g1gc.html)
 

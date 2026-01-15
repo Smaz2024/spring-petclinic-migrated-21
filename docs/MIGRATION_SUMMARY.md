@@ -4,7 +4,7 @@ This document illustrates the before-and-after state of the Spring Petclinic app
 
 | Feature | Legacy System | Migrated System |
 |---------|---------------|-----------------|
-| **Java Version** | Java 8 | **Java 17 (LTS)** |
+| **Java Version** | Java 8 | **Java 21 (LTS)** |
 | **Framework** | Spring 4.x | **Spring 6.2.1x (Pure Spring)** |
 | **Database** | HSQLDB / MySQL 5.x | **PostgreSQL 15** |
 | **UI Framework** | Bootstrap 2.3.2 | **Bootstrap 5.3** |
