@@ -59,7 +59,8 @@ public interface ClinicService {
   Owner findOwnerById(@NonNull Long id);
 
   /**
-   * Retrieves a paginated list of owners whose last name starts with the given string.
+   * Retrieves a paginated list of owners whose last name starts with the given
+   * string.
    *
    * @param lastName the last name to search for
    * @param pageable the pagination information

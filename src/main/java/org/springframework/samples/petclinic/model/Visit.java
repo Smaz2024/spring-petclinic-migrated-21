@@ -16,7 +16,6 @@
 package org.springframework.samples.petclinic.model;
 
 import java.time.LocalDate;
-import java.util.logging.Logger;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,7 +39,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Visit extends BaseEntity {
 
   private static final long serialVersionUID = 1L;
-  private static final Logger logger = Logger.getLogger(Visit.class.getName());
 
   @Column(name = "visit_date")
   @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -61,32 +59,31 @@ public class Visit extends BaseEntity {
   }
 
   public LocalDate getDate() {
-    logger.info("Getting date: " + date);
+
     return this.date;
   }
 
   public void setDate(LocalDate date) {
-    logger.info("Setting date to: " + date);
+
     this.date = date;
   }
 
   public String getDescription() {
-    logger.info("Getting description: " + description);
+
     return this.description;
   }
 
   public void setDescription(String description) {
-    logger.info("Setting description to: " + description);
+
     this.description = description;
   }
 
   public Pet getPet() {
-    logger.info("Getting pet: " + pet);
+
     return this.pet;
   }
 
   public void setPet(Pet pet) {
-    logger.info("Setting pet to: " + pet);
     this.pet = pet;
   }
 }

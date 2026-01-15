@@ -92,8 +92,8 @@ public class ClinicServiceImpl implements ClinicService {
   @Transactional(readOnly = true)
   @Cacheable(value = "vets")
   @CircuitBreaker(name = PetclinicConstants.DEFAULT_CIRCUIT_BREAKER)
-  @RateLimiter(name = PetclinicConstants.DEFAULT_RATE_LIMITER)
   @Retry(name = PetclinicConstants.DEFAULT_CIRCUIT_BREAKER)
+  @RateLimiter(name = PetclinicConstants.DEFAULT_RATE_LIMITER)
   @NonNull
   public Collection<Vet> findVets() throws DataAccessException {
     logger.debug("Fetching all vets");
@@ -102,12 +102,15 @@ public class ClinicServiceImpl implements ClinicService {
 
   @Override
   @Transactional(readOnly = true)
+  @Cacheable(value = "petTypes")
   @CircuitBreaker(name = PetclinicConstants.DEFAULT_CIRCUIT_BREAKER)
   @Retry(name = PetclinicConstants.DEFAULT_CIRCUIT_BREAKER)
+  @RateLimiter(name = PetclinicConstants.DEFAULT_RATE_LIMITER)
   @NonNull
   public Collection<PetType> findPetTypes() throws DataAccessException {
     logger.debug("Fetching all pet types");
-    // JDK 21: Using modern Optional API with ofNullable and orElseGet for cleaner code
+    // JDK 21: Using modern Optional API with ofNullable and orElseGet for cleaner
+    // code
     Collection<PetType> types = petRepository.findPetTypes();
     // Returns empty immutable collection using JDK 21 List.copyOf() if needed
     return types != null ? types : java.util.List.of();
@@ -117,20 +120,25 @@ public class ClinicServiceImpl implements ClinicService {
   @Transactional(readOnly = true)
   @CircuitBreaker(name = PetclinicConstants.DEFAULT_CIRCUIT_BREAKER)
   @Retry(name = PetclinicConstants.DEFAULT_CIRCUIT_BREAKER)
+  @RateLimiter(name = PetclinicConstants.DEFAULT_RATE_LIMITER)
   public Owner findOwnerById(@NonNull Long id) throws DataAccessException {
     logger.debug("Fetching owner by ID: {}", id);
-    // JDK 21: Using modern Optional API with orElse for pattern matching-ready null handling
+    // JDK 21: Using modern Optional API with orElse for pattern matching-ready null
+    // handling
     return ownerRepository.findById(id).orElse(null);
   }
 
   @Override
+  @Transactional(readOnly = true)
   @CircuitBreaker(name = PetclinicConstants.DEFAULT_CIRCUIT_BREAKER)
   @Retry(name = PetclinicConstants.DEFAULT_CIRCUIT_BREAKER)
+  @RateLimiter(name = PetclinicConstants.DEFAULT_RATE_LIMITER)
   @NonNull
   public Page<Owner> findOwnerByLastName(String lastName, @NonNull Pageable pageable)
       throws DataAccessException {
     logger.debug("Fetching owners by last name: {}", lastName);
-    // JDK 21: Using modern error handling with custom exception for better observability
+    // JDK 21: Using modern error handling with custom exception for better
+    // observability
     Page<Owner> result = ownerRepository.findByLastName(lastName, pageable);
     if (result == null) {
       throw new RuntimeException("Unexpected null result from ownerRepository");
@@ -140,6 +148,8 @@ public class ClinicServiceImpl implements ClinicService {
 
   @Override
   @Transactional
+  @CircuitBreaker(name = PetclinicConstants.DEFAULT_CIRCUIT_BREAKER)
+  @RateLimiter(name = PetclinicConstants.DEFAULT_RATE_LIMITER)
   public void saveOwner(@NotNull Owner owner) throws DataAccessException {
     logger.info("Saving owner: {}", owner);
     // JDK 21: Using modern null checking with enhanced if-conditions
@@ -150,6 +160,8 @@ public class ClinicServiceImpl implements ClinicService {
 
   @Override
   @Transactional
+  @CircuitBreaker(name = PetclinicConstants.DEFAULT_CIRCUIT_BREAKER)
+  @RateLimiter(name = PetclinicConstants.DEFAULT_RATE_LIMITER)
   public void saveVisit(@NotNull Visit visit) throws DataAccessException {
     logger.info("Saving visit: {}", visit);
     // JDK 21: Using modern null checking with enhanced if-conditions
@@ -160,9 +172,13 @@ public class ClinicServiceImpl implements ClinicService {
 
   @Override
   @Transactional(readOnly = true)
+  @CircuitBreaker(name = PetclinicConstants.DEFAULT_CIRCUIT_BREAKER)
+  @Retry(name = PetclinicConstants.DEFAULT_CIRCUIT_BREAKER)
+  @RateLimiter(name = PetclinicConstants.DEFAULT_RATE_LIMITER)
   public Pet findPetById(@NonNull Long id) throws DataAccessException {
     logger.debug("Finding pet by ID: {}", id);
-    // JDK 21: Using Optional with orElseThrow for cleaner error handling and pattern matching
+    // JDK 21: Using Optional with orElseThrow for cleaner error handling and
+    // pattern matching
     Pet pet = petRepository.findById(id)
         .orElseThrow(() -> new IllegalArgumentException("Pet not found with id: " + id));
     return pet;
@@ -170,6 +186,8 @@ public class ClinicServiceImpl implements ClinicService {
 
   @Override
   @Transactional
+  @CircuitBreaker(name = PetclinicConstants.DEFAULT_CIRCUIT_BREAKER)
+  @RateLimiter(name = PetclinicConstants.DEFAULT_RATE_LIMITER)
   public void savePet(@NotNull Pet pet) throws DataAccessException {
     logger.info("Saving pet: {}", pet);
     // JDK 21: Direct save without null check as @NotNull is enforced

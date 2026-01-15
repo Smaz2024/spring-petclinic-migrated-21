@@ -18,7 +18,6 @@ package org.springframework.samples.petclinic.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import java.util.logging.Logger;
 
 /**
  * Models a {@link Vet Vet's} specialization (e.g. radiology, dentistry,
@@ -34,17 +33,16 @@ import java.util.logging.Logger;
 public class Specialty extends NamedEntity {
 
     private static final long serialVersionUID = 1L;
-    private static final Logger logger = Logger.getLogger(Specialty.class.getName());
 
     @Override
     public String getName() {
-        logger.info("Getting specialty name: " + super.getName());
+
         return super.getName();
     }
 
     @Override
     public void setName(String name) {
-        logger.info("Setting specialty name to: " + name);
+
         super.setName(name);
     }
 }

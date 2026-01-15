@@ -22,7 +22,6 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Logger;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -50,7 +49,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Pet extends NamedEntity {
 
   private static final long serialVersionUID = 1L;
-  private static final Logger logger = Logger.getLogger(Pet.class.getName());
 
   @Column(name = "birth_date")
   @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -70,32 +68,32 @@ public class Pet extends NamedEntity {
   private Set<Visit> visits = new LinkedHashSet<>();
 
   public void setBirthDate(LocalDate birthDate) {
-    logger.info("Setting birth date to: " + birthDate);
+
     this.birthDate = birthDate;
   }
 
   public LocalDate getBirthDate() {
-    logger.info("Getting birth date: " + birthDate);
+
     return this.birthDate;
   }
 
   public PetType getType() {
-    logger.info("Getting pet type: " + type);
+
     return this.type;
   }
 
   public void setType(PetType type) {
-    logger.info("Setting pet type to: " + type);
+
     this.type = type;
   }
 
   public Owner getOwner() {
-    logger.info("Getting owner: " + owner);
+
     return this.owner;
   }
 
   public void setOwner(Owner owner) {
-    logger.info("Setting owner to: " + owner);
+
     this.owner = owner;
   }
 
@@ -112,7 +110,8 @@ public class Pet extends NamedEntity {
 
   public List<Visit> getVisits() {
     // JDK 21: Using Sequenced Collections API for ordered collection operations
-    // This provides a cleaner interface for accessing collection members by position
+    // This provides a cleaner interface for accessing collection members by
+    // position
     List<Visit> sortedVisits = new ArrayList<>(getVisitsInternal());
     PropertyComparator.sort(sortedVisits, new MutableSortDefinition("date", false, false));
     // Returns an unmodifiable view using modern JDK 21 Collections

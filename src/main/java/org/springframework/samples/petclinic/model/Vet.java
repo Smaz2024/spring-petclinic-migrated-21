@@ -20,7 +20,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Logger;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -47,7 +46,6 @@ import org.springframework.beans.support.PropertyComparator;
 public class Vet extends Person {
 
   private static final long serialVersionUID = 1L;
-  private static final Logger logger = Logger.getLogger(Vet.class.getName());
 
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "vet_specialties", joinColumns = @JoinColumn(name = "vet_id"), inverseJoinColumns = @JoinColumn(name = "specialty_id"))
@@ -66,7 +64,7 @@ public class Vet extends Person {
 
   @XmlElement
   public List<Specialty> getSpecialties() {
-    logger.info("Getting specialties");
+
     // JDK 21: Using Sequenced Collections API with modern collection operations
     // ArrayList provides optimal performance for iteration and indexed access
     List<Specialty> sortedSpecs = new ArrayList<>(getSpecialtiesInternal());
@@ -76,12 +74,12 @@ public class Vet extends Person {
   }
 
   public int getNrOfSpecialties() {
-    logger.info("Getting number of specialties");
+
     return getSpecialtiesInternal().size();
   }
 
   public void addSpecialty(Specialty specialty) {
-    logger.info("Adding specialty: " + specialty);
+
     getSpecialtiesInternal().add(specialty);
   }
 }

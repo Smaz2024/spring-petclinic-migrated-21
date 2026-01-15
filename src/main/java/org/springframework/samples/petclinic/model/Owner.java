@@ -20,7 +20,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Logger;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -52,7 +51,6 @@ import org.springframework.samples.petclinic.util.DataMaskingUtil;
 public class Owner extends Person {
 
   private static final long serialVersionUID = 1L;
-  private static final Logger logger = Logger.getLogger(Owner.class.getName());
 
   @Column(name = "address")
   @NotEmpty(message = "Address is required.")
@@ -72,32 +70,32 @@ public class Owner extends Person {
   private Set<Pet> pets;
 
   public String getAddress() {
-    logger.info("Getting address");
+
     return this.address;
   }
 
   public void setAddress(String address) {
-    logger.info("Setting address");
+
     this.address = address;
   }
 
   public String getCity() {
-    logger.info("Getting city");
+
     return this.city;
   }
 
   public void setCity(String city) {
-    logger.info("Setting city");
+
     this.city = city;
   }
 
   public String getTelephone() {
-    logger.info("Getting telephone");
+
     return this.telephone;
   }
 
   public void setTelephone(String telephone) {
-    logger.info("Setting telephone");
+
     this.telephone = telephone;
   }
 
@@ -113,16 +111,19 @@ public class Owner extends Person {
   }
 
   public List<Pet> getPets() {
-    // JDK 21: Using Sequenced Collections API for more efficient collection operations
-    // ArrayList provides direct access to underlying sequence, preserving insertion order
+    // JDK 21: Using Sequenced Collections API for more efficient collection
+    // operations
+    // ArrayList provides direct access to underlying sequence, preserving insertion
+    // order
     List<Pet> sortedPets = new ArrayList<>(getPetsInternal());
     PropertyComparator.sort(sortedPets, new MutableSortDefinition("name", true, true));
-    // Returns an unmodifiable view of the sorted list using JDK 21 Collections.unmodifiableList
+    // Returns an unmodifiable view of the sorted list using JDK 21
+    // Collections.unmodifiableList
     return Collections.unmodifiableList(sortedPets);
   }
 
   public void addPet(Pet pet) {
-    logger.info("Adding pet: " + pet);
+
     if (pet.isNew()) {
       getPetsInternal().add(pet);
     }
@@ -137,7 +138,7 @@ public class Owner extends Person {
    * @return true if pet name is already in use
    */
   public Pet getPet(String name) {
-    logger.info("Getting pet by name: " + name);
+
     return getPet(name, false);
   }
 
@@ -145,12 +146,12 @@ public class Owner extends Person {
    * Return the Pet with the given name, or null if none found for this Owner.
    * Demonstrates JDK 21 improvements with enhanced loop and pattern matching.
    *
-   * @param name to test
+   * @param name      to test
    * @param ignoreNew whether to ignore new pets
    * @return the Pet with matching name, or null if not found
    */
   public Pet getPet(String name, boolean ignoreNew) {
-    logger.info("Getting pet by name: " + name + ", ignoreNew: " + ignoreNew);
+
     // JDK 21: Use lowercase() with more efficient string handling
     String lowerName = name.toLowerCase();
     for (Pet pet : getPetsInternal()) {

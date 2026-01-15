@@ -16,7 +16,6 @@
 package org.springframework.samples.petclinic.model;
 
 import java.io.Serializable;
-import java.util.logging.Logger;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -38,8 +37,6 @@ import jakarta.xml.bind.annotation.XmlElement;
 @MappedSuperclass
 public class BaseEntity implements Serializable {
   private static final long serialVersionUID = 1L;
-    private static final Logger logger = Logger.getLogger(BaseEntity.class.getName());
-
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,12 +44,12 @@ public class BaseEntity implements Serializable {
 
   @XmlElement
   public Long getId() {
-    logger.info("Getting ID: " + id);
+
     return id;
   }
 
   public void setId(Long id) {
-    logger.info("Setting ID to: " + id);
+
     this.id = id;
   }
 

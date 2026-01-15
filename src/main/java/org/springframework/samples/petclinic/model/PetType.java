@@ -17,7 +17,6 @@ package org.springframework.samples.petclinic.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import java.util.logging.Logger;
 
 /**
  * Simple JavaBean domain object representing a pet type (e.g. dog, cat, bird).
@@ -31,17 +30,16 @@ import java.util.logging.Logger;
 public class PetType extends NamedEntity {
 
     private static final long serialVersionUID = 1L;
-    private static final Logger logger = Logger.getLogger(PetType.class.getName());
 
     @Override
     public String getName() {
-        logger.info("Getting pet type name: " + super.getName());
+
         return super.getName();
     }
 
     @Override
     public void setName(String name) {
-        logger.info("Setting pet type name to: " + name);
+
         super.setName(name);
     }
 }

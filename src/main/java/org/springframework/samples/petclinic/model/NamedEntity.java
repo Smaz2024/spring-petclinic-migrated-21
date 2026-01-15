@@ -19,7 +19,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.xml.bind.annotation.XmlElement;
-import java.util.logging.Logger;
 
 /**
  * Extension of {@link BaseEntity} with a {@code name} property.
@@ -32,7 +31,6 @@ import java.util.logging.Logger;
 public class NamedEntity extends BaseEntity {
 
   private static final long serialVersionUID = 1L;
-  private static final Logger logger = Logger.getLogger(NamedEntity.class.getName());
 
   @Column(name = "name")
   @NotEmpty
@@ -40,12 +38,12 @@ public class NamedEntity extends BaseEntity {
 
   @XmlElement
   public String getName() {
-    logger.info("Getting name: " + name);
+
     return this.name;
   }
 
   public void setName(String name) {
-    logger.info("Setting name to: " + name);
+
     this.name = name;
   }
 

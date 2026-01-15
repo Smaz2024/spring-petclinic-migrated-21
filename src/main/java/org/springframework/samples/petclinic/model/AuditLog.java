@@ -16,7 +16,6 @@
 package org.springframework.samples.petclinic.model;
 
 import java.time.LocalDateTime;
-import java.util.logging.Logger;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,7 +39,6 @@ import jakarta.validation.constraints.NotNull;
 public class AuditLog extends BaseEntity {
 
   private static final long serialVersionUID = 1L;
-  private static final Logger logger = Logger.getLogger(AuditLog.class.getName());
 
   @Column(name = "entity_type")
   @NotNull
@@ -78,92 +76,92 @@ public class AuditLog extends BaseEntity {
 
   // Getters and Setters
   public String getEntityType() {
-    logger.info("Getting entity type: " + entityType);
+
     return entityType;
   }
 
   public void setEntityType(String entityType) {
-    logger.info("Setting entity type to: " + entityType);
+
     this.entityType = entityType;
   }
 
   public Long getEntityId() {
-    logger.info("Getting entity ID: " + entityId);
+
     return entityId;
   }
 
   public void setEntityId(Long entityId) {
-    logger.info("Setting entity ID to: " + entityId);
+
     this.entityId = entityId;
   }
 
   public String getAction() {
-    logger.info("Getting action: " + action);
+
     return action;
   }
 
   public void setAction(String action) {
-    logger.info("Setting action to: " + action);
+
     this.action = action;
   }
 
   public String getUserId() {
-    logger.info("Getting user ID: " + userId);
+
     return userId;
   }
 
   public void setUserId(String userId) {
-    logger.info("Setting user ID to: " + userId);
+
     this.userId = userId;
   }
 
   public LocalDateTime getTimestamp() {
-    logger.info("Getting timestamp: " + timestamp);
+
     return timestamp;
   }
 
   public void setTimestamp(LocalDateTime timestamp) {
-    logger.info("Setting timestamp to: " + timestamp);
+
     this.timestamp = timestamp;
   }
 
   public String getOldValue() {
-    logger.info("Getting old value: " + oldValue);
+
     return oldValue;
   }
 
   public void setOldValue(String oldValue) {
-    logger.info("Setting old value to: " + oldValue);
+
     this.oldValue = oldValue;
   }
 
   public String getNewValue() {
-    logger.info("Getting new value: " + newValue);
+
     return newValue;
   }
 
   public void setNewValue(String newValue) {
-    logger.info("Setting new value to: " + newValue);
+
     this.newValue = newValue;
   }
 
   public String getTraceId() {
-    logger.info("Getting trace ID: " + traceId);
+
     return traceId;
   }
 
   public void setTraceId(String traceId) {
-    logger.info("Setting trace ID to: " + traceId);
+
     this.traceId = traceId;
   }
 
   public String getIpAddress() {
-    logger.info("Getting IP address: " + ipAddress);
+
     return ipAddress;
   }
 
   public void setIpAddress(String ipAddress) {
-    logger.info("Setting IP address to: " + ipAddress);
+
     this.ipAddress = ipAddress;
   }
 }
