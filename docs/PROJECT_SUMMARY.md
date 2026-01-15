@@ -25,7 +25,7 @@ This file consolidates all key information from the following documentation file
 - Owner, Pet, Visit, Vet management.
 - Audit logging (AOP aspect, audit_log table, 7-year retention).
 - PII data masking in logs.
-- Security headers, input sanitization, RBAC (open access, no authentication).
+- Security headers, input sanitization.
 - Observability: Prometheus metrics, OpenTelemetry tracing, MDC trace/span IDs in logs.
 - Resilience: Circuit breaker, rate limiter, bulkhead, retry policy.
 - Performance: HikariCP, Caffeine, optimized queries, indexes.
@@ -36,8 +36,8 @@ This file consolidates all key information from the following documentation file
 - Database scripts and schema fully migrated to PostgreSQL.
 - Implementation plan: 17 phases, from analysis to deployment.
 - Task breakdown: granular steps for each migration phase.
-- Enhanced plan: partitioning, audit log, code quality, RBAC, observability.
-- Recommendations: selective reactive patterns, authentication options, UI modernization paths.
+- Enhanced plan: partitioning, audit log, code quality, observability.
+- Recommendations: selective reactive patterns, UI modernization paths.
 
 ## 6. Compliance & Security
 - GDPR: Data minimization, right to erasure, audit trail, PII masking.

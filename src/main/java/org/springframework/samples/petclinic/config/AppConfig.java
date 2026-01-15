@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
@@ -47,25 +48,28 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 // Specifies the base packages to scan for Spring components.
 @ComponentScan(basePackages = {
-    "org.springframework.samples.petclinic.config",
-    "org.springframework.samples.petclinic.web",
-    "org.springframework.samples.petclinic.service",
-    "org.springframework.samples.petclinic.repository",
-    "org.springframework.samples.petclinic.aspect"
+        "org.springframework.samples.petclinic.config",
+        "org.springframework.samples.petclinic.web",
+        "org.springframework.samples.petclinic.service",
+        "org.springframework.samples.petclinic.repository",
+        "org.springframework.samples.petclinic.aspect"
 })
 // Enables support for AspectJ-based aspects.
 @EnableAspectJAutoProxy
 // Enables Spring's annotation-driven transaction management.
 @EnableTransactionManagement
 // Specifies the location of the application properties file.
-@PropertySource("classpath:application.properties")
+@PropertySources({
+        @PropertySource("classpath:application.properties"),
+        @PropertySource(value = "classpath:application-${spring.profiles.active:dev}.properties", ignoreResourceNotFound = true)
+})
 // Imports other configuration classes to create a modular configuration.
 @Import({
-    DataSourceConfig.class,
-    JpaConfig.class,
-    CacheConfig.class,
-    ObservabilityConfig.class,
-    ResilienceConfig.class
+        DataSourceConfig.class,
+        JpaConfig.class,
+        CacheConfig.class,
+        ObservabilityConfig.class,
+        ResilienceConfig.class
 })
 public class AppConfig {
 }

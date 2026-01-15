@@ -8,10 +8,12 @@ Use these commands to package the application for a specific environment. This e
 
 | Environment | Maven Build Command |
 | :--- | :--- |
-| **Development** | `mvn clean install "-Dspring.profiles.active=dev"` |
-| **SIT** | `mvn clean install "-Dspring.profiles.active=sit"` |
-| **UAT** | `mvn clean install "-Dspring.profiles.active=uat"` |
-| **Production** | `mvn clean install "-Dspring.profiles.active=prod"` |
+| Environment | Maven Build Command | Command with Env Vars |
+| :--- | :--- | :--- |
+| **Development** | `mvn clean install "-Dspring.profiles.active=dev"` | `$env:SPRING_PROFILES_ACTIVE="dev"; mvn clean install` |
+| **SIT** | `mvn clean install "-Dspring.profiles.active=sit"` | `$env:SPRING_PROFILES_ACTIVE="sit"; $env:DB_PASSWORD="pwd"; mvn clean install` |
+| **UAT** | `mvn clean install "-Dspring.profiles.active=uat"` | `$env:SPRING_PROFILES_ACTIVE="uat"; $env:DB_PASSWORD="pwd"; mvn clean install` |
+| **Production** | `mvn clean install "-Dspring.profiles.active=prod"` | `$env:SPRING_PROFILES_ACTIVE="prod"; $env:DB_PASSWORD="pwd"; mvn clean install` |
 
 ---
 
@@ -24,10 +26,12 @@ To deploy to a WildFly server that is already running (e.g., locally or accessib
 
 | Environment | Deployment Command |
 | :--- | :--- |
-| **Development** | `mvn wildfly:deploy "-Dspring.profiles.active=dev"` |
-| **SIT** | `mvn wildfly:deploy "-Dspring.profiles.active=sit"` |
-| **UAT** | `mvn wildfly:deploy "-Dspring.profiles.active=uat"` |
-| **Production** | `mvn wildfly:deploy "-Dspring.profiles.active=prod"` |
+| Environment | Deployment Command | Command with Env Vars (PowerShell) |
+| :--- | :--- | :--- |
+| **Development** | `mvn wildfly:deploy "-Dspring.profiles.active=dev"` | `$env:SPRING_PROFILES_ACTIVE="dev"; mvn wildfly:deploy` |
+| **SIT** | `mvn wildfly:deploy "-Dspring.profiles.active=sit"` | `$env:SPRING_PROFILES_ACTIVE="sit"; $env:DB_PASSWORD="pwd"; mvn wildfly:deploy` |
+| **UAT** | `mvn wildfly:deploy "-Dspring.profiles.active=uat"` | `$env:SPRING_PROFILES_ACTIVE="uat"; $env:DB_PASSWORD="pwd"; mvn wildfly:deploy` |
+| **Production** | `mvn wildfly:deploy "-Dspring.profiles.active=prod"` | `$env:SPRING_PROFILES_ACTIVE="prod"; $env:DB_PASSWORD="pwd"; mvn wildfly:deploy` |
 
 ### **2. Manual Deployment (WAR Copy)**
 If you prefer to move the artifact manually to the WildFly deployment folder:
@@ -38,6 +42,33 @@ If you prefer to move the artifact manually to the WildFly deployment folder:
     `cp target/petclinic.war $WILDFLY_HOME/standalone/deployments/`
 
 ---
+
+## 🏥 Health Checks and Monitoring
+
+The application exposes standard endpoints for load balancers and container orchestrators (Kubernetes) to monitor its status.
+
+### **Health Check Endpoints**
+These endpoints are available under the `/health` context path:
+
+| Endpoint | Purpose | JSON Response Example |
+| :--- | :--- | :--- |
+| `/health` | **Basic Health Check** - Returns simple UP status. Use this for standard load balancer probing (AWS ALB, Nginx). | `{"status": "UP"}` |
+| `/health/detailed` | **Detailed Health Check** - Verifies database connectivity and cache availability. Returns 503 if any check fails. | `{"status": "UP", "checks": {"database": {...}, "cache": {...}}}` |
+| `/health/liveness` | **Liveness Probe** - For Kubernetes to determine if the container is running and should not be restarted. | `{"status": "UP", "check": "liveness"}` |
+| `/health/readiness` | **Readiness Probe** - For Kubernetes to determine if the pod is ready to accept traffic (checks DB connection). | `{"status": "UP", "check": "readiness"}` |
+
+### **Usage Example**
+To verify the application is healthy after deployment:
+
+```bash
+curl -v http://localhost:8080/petclinic/health
+# Expected: 200 OK with {"status":"UP",...}
+```
+
+For detailed diagnostics:
+```bash
+curl -v http://localhost:8080/petclinic/health/detailed
+```
 
 ## ⚙️ Environment Configuration Summary
 

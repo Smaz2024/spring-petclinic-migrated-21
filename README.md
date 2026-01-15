@@ -95,18 +95,23 @@ This project represents the **complete migration from Java 17 to Java 21 LTS** o
 
 ### Build & Run
 
+The application uses **Spring Profiles** to manage configurations across different environments (`dev`, `sit`, `uat`, `prod`).
+
 ```bash
 # Set Java 21 as JAVA_HOME
 export JAVA_HOME=/path/to/jdk-21
 
-# Compile and package the application
+# 1. Build and package (Default: dev)
 mvn clean package
 
-# Run tests with JDK 21
-mvn test
+# 2. Build for specific environment
+mvn clean package -Dspring.profiles.active=prod
 
-# Deploy WAR to WildFly 30
-cp target/petclinic.war $WILDFLY_HOME/standalone/deployments/
+# 3. Deploy to WildFly using Maven (Specify profile)
+mvn wildfly:deploy -Dspring.profiles.active=sit
+
+# 4. Deploy with Environment Variables (e.g., for SIT/PROD)
+$env:SPRING_PROFILES_ACTIVE="prod"; $env:DB_PASSWORD="your_password"; mvn wildfly:deploy -DskipTests
 ```
 
 ### Build Status
@@ -225,7 +230,7 @@ AppConfig (Root Configuration)
     ├── JpaConfig             → Hibernate 6 + JPA
     ├── WebMvcConfig          → Controllers, formatters, interceptors
     ├── CacheConfig           → Caffeine cache setup
-    ├── SecurityConfig        → Security headers, RBAC
+    ├── SecurityConfig        → Security headers, input sanitization
     ├── ObservabilityConfig   → Micrometer + OTEL
     └── ResilienceConfig      → Circuit breaker, rate limiter
 })
@@ -409,18 +414,6 @@ http_requests_received_total
 // Original: 123 Main Street, Springfield, IL 62701
 // Masked:   123 Main St, ***
 ```
-
-### RBAC (Role-Based Access Control)
-
-Two roles defined in SecurityConfig:
-- **ROLE_USER**: Read-only access to owners, pets, vets, visits
-- **ROLE_ADMIN**: Full CRUD on all entities
-
-Default credentials (demo):
-- User: `user` / Password: `password` (ROLE_USER)
-- Admin: `admin` / Password: `password` (ROLE_ADMIN)
-
-**Note**: This is a demo application. For production, integrate with enterprise auth (LDAP, OAuth2, OIDC).
 
 ---
 
