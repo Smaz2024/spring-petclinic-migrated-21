@@ -453,6 +453,39 @@ Located at: `src/main/webapp/WEB-INF/jboss-deployment-structure.xml`
 
 ---
 
+## Security & Credential Management
+
+### Secure Credential Injection
+To avoid cleartext passwords in `application-*.properties`, the application is configured to use environment variables or JVM system properties.
+
+**Configuration Method (Recommended):**
+Add the credentials to WildFly's startup configuration to ensure they are injected into the JVM at runtime.
+
+**On Windows (`bin/standalone.conf.bat`):**
+```batch
+set "JAVA_OPTS=%JAVA_OPTS% -DDB_USERNAME=petclinic -DDB_PASSWORD=your_secure_password"
+```
+
+**On Linux (`bin/standalone.conf`):**
+```bash
+JAVA_OPTS="$JAVA_OPTS -DDB_USERNAME=petclinic -DDB_PASSWORD=your_secure_password"
+```
+
+---
+
+## Architectural Choice: HikariCP vs JNDI
+
+The application favors **HikariCP (Application-Managed)** over **JNDI (Server-Managed)** for the following reasons:
+
+1.  **Cloud-Native Portability**: Externalizing the connection pool makes the application infrastructure-agnostic (ready for WildFly, Tomcat, or Docker).
+2.  **Superior Performance**: HikariCP is optimized for low-latency Spring applications, bypassing the overhead of server-level JNDI lookups.
+3.  **Enhanced Observability**: Integrated directly with Micrometer and OpenTelemetry, providing deep visibility into connection pool metrics within the application context.
+4.  **Modern Security Standards**: Credentials are injected via environment variables (12-Factor App methodology), keeping secrets out of both source code and server config files.
+
+*Note: The application retains the ability to use JNDI if required by a specific environment, but HikariCP remains the primary recommendation for performance and agility.*
+
+---
+
 ## Performance Tuning
 
 ### Spring Component Scanning
