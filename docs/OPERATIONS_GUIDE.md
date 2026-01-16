@@ -8,8 +8,6 @@ Use these commands to package the application for a specific environment. This e
 
 | Environment | Maven Build Command |
 | :--- | :--- |
-| Environment | Maven Build Command | Command with Env Vars |
-| :--- | :--- | :--- |
 | **Development** | `mvn clean install "-Dspring.profiles.active=dev"` | `$env:SPRING_PROFILES_ACTIVE="dev"; mvn clean install` |
 | **SIT** | `mvn clean install "-Dspring.profiles.active=sit"` | `$env:SPRING_PROFILES_ACTIVE="sit"; $env:DB_PASSWORD="pwd"; mvn clean install` |
 | **UAT** | `mvn clean install "-Dspring.profiles.active=uat"` | `$env:SPRING_PROFILES_ACTIVE="uat"; $env:DB_PASSWORD="pwd"; mvn clean install` |
@@ -26,8 +24,6 @@ To deploy to a WildFly server that is already running (e.g., locally or accessib
 
 | Environment | Deployment Command |
 | :--- | :--- |
-| Environment | Deployment Command | Command with Env Vars (PowerShell) |
-| :--- | :--- | :--- |
 | **Development** | `mvn wildfly:deploy "-Dspring.profiles.active=dev"` | `$env:SPRING_PROFILES_ACTIVE="dev"; mvn wildfly:deploy` |
 | **SIT** | `mvn wildfly:deploy "-Dspring.profiles.active=sit"` | `$env:SPRING_PROFILES_ACTIVE="sit"; $env:DB_PASSWORD="pwd"; mvn wildfly:deploy` |
 | **UAT** | `mvn wildfly:deploy "-Dspring.profiles.active=uat"` | `$env:SPRING_PROFILES_ACTIVE="uat"; $env:DB_PASSWORD="pwd"; mvn wildfly:deploy` |

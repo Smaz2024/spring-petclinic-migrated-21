@@ -409,47 +409,6 @@ Located at: `src/main/webapp/WEB-INF/jboss-deployment-structure.xml`
 - Avoids version conflicts
 - Reduces startup time (less classpath scanning)
 
-### PostgreSQL JDBC Driver
-
-**Recommended**: Deploy as a WildFly module (not in WAR)
-
-1. Create module directory:
-   ```bash
-   mkdir -p $WILDFLY_HOME/modules/org/postgresql/main
-   ```
-
-2. Copy driver:
-   ```bash
-   cp postgresql-42.7.1.jar $WILDFLY_HOME/modules/org/postgresql/main/
-   ```
-
-3. Create `module.xml`:
-   ```xml
-   <module xmlns="urn:jboss:module:1.9" name="org.postgresql">
-       <resources>
-           <resource-root path="postgresql-42.7.1.jar"/>
-       </resources>
-       <dependencies>
-           <module name="jakarta.api"/>
-           <module name="jakarta.transaction.api"/>
-       </dependencies>
-   </module>
-   ```
-
-4. Configure datasource in `standalone.xml`:
-   ```xml
-   <datasource jndi-name="java:jboss/datasources/PetclinicDS" pool-name="PetclinicDS">
-       <connection-url>jdbc:postgresql://localhost:5432/petclinic</connection-url>
-       <driver>postgresql</driver>
-       <security>
-           <user-name>petclinic</user-name>
-           <password>petclinic</password>
-       </security>
-   </datasource>
-   <drivers>
-       <driver name="postgresql" module="org.postgresql"/>
-   </drivers>
-   ```
 
 ---
 
@@ -616,7 +575,7 @@ jcmd <pid> GC.class_histogram
 - [ ] Unused subsystems disabled
 - [ ] Deployment scanner disabled
 - [ ] Logging level: INFO (not DEBUG)
-- [ ] PostgreSQL driver: Module (not WAR)
+- [ ] PostgreSQL driver: Bundled in WAR (ensure no version conflicts)
 
 ### Application Configuration
 - [ ] Connection pool sized (15-25 for 2GB)

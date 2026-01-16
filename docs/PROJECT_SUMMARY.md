@@ -1,14 +1,14 @@
 # Spring Petclinic Migration - Project Summary
 
 This file consolidates all key information from the following documentation files:
-- README_CONSOLIDATED.md
-- INDEX.md
-- technical_architecture.md
-- implementation_plan.md
-- task.md
-- COMPLIANCE.md
-- enhanced_plan_summary.md
-- recommendations_and_questions.md
+- README.md
+- ERD.md
+- HLD.md
+- LLD.md
+- MIGRATION_SUMMARY.md
+- OBSERVABILITY_GUIDE.md
+- WILDFLY_DEPLOYMENT.md
+- OPERATIONS_GUIDE.md
 
 ## 1. Overview
 - Modernized from Spring 4/Java 8/MySQL/HSQLDB/Bootstrap 2 to Spring 6.2.1/Java 21/PostgreSQL 16/Bootstrap 5.
@@ -65,5 +65,5 @@ All major configuration (database, cache, JPA, resilience, observability, etc.) 
 
 ---
 
-**Last Updated**: 2026-01-15
+**Last Updated**: 2026-01-16
 **Status**: ✅ Complete, ready for deployment.
